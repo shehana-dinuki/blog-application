@@ -1,0 +1,13 @@
+# Environment variables (contains secrets)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+
+# Uploaded files
+/uploads/*
+!/uploads/.gitkeep
