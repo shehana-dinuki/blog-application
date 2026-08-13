@@ -207,3 +207,57 @@ a { color: inherit; text-decoration: none; }
   outline: none;
   border-color: var(--accent);
 }
+
+/* Hero with subtle color glow */
+.hero-glow {
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 107, 255, 0.25) 0%, rgba(139, 107, 255, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Gradient cover banners */
+.card-cover {
+  width: 100%;
+  height: 140px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-amber   { background: linear-gradient(135deg, #F5A623 0%, #8A5E1E 100%); }
+.cover-blue    { background: linear-gradient(135deg, #5B9DFF 0%, #2F5A99 100%); }
+.cover-pink    { background: linear-gradient(135deg, #FF6B9D 0%, #99425F 100%); }
+.cover-teal    { background: linear-gradient(135deg, #4FD1C5 0%, #2C7A72 100%); }
+.cover-green   { background: linear-gradient(135deg, #4ADE80 0%, #2C8A4E 100%); }
+.cover-violet  { background: linear-gradient(135deg, #8B6BFF 0%, #5A4499 100%); }
+
+.card-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
