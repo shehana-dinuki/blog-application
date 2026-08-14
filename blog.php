@@ -35,6 +35,10 @@ $isOwner = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $blog['user_id
 <div class="container" style="max-width: 700px; padding: 60px 0;">
   <a href="index.php" class="meta" style="color: var(--accent);">&larr; Back to blogs</a>
 
+  <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
+    <img src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: var(--radius); margin-top: 20px;">
+  <?php endif; ?>
+
   <h1 style="margin-top: 20px;"><?= htmlspecialchars($blog['title']) ?></h1>
 
   <p class="meta" style="margin-top: 12px;">

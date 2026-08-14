@@ -29,16 +29,28 @@ $totalBlogs = count($myBlogs);
     <?php if (empty($myBlogs)): ?>
       <p style="color: var(--text-muted);">You haven't written any blogs yet. Click "Create New Blog" to get started.</p>
     <?php else: ?>
+      <?php
+      $coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
+      $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
+      ?>
       <?php foreach ($myBlogs as $blog): ?>
-        <div class="card" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3><?= htmlspecialchars($blog['title']) ?></h3>
-            <p class="meta" style="margin-top: 8px;">
-              <?= date('F j, Y', strtotime($blog['created_at'])) ?>
-              <?php if ($blog['updated_at'] != $blog['created_at']): ?>
-                · <em>updated <?= date('F j, Y', strtotime($blog['updated_at'])) ?></em>
-              <?php endif; ?>
-            </p>
+        <?php $coverIndex = $blog['id'] % count($coverStyles); ?>
+        <div class="card" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+          <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
+            <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
+              <img src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="" style="width: 90px; height: 70px; object-fit: cover; border-radius: var(--radius-sm); flex-shrink: 0;">
+            <?php else: ?>
+              <div class="card-cover <?= $coverStyles[$coverIndex] ?>" style="width: 90px; height: 70px; margin-bottom: 0; font-size: 1.4rem; flex-shrink: 0;"><?= $coverSymbols[$coverIndex] ?></div>
+            <?php endif; ?>
+            <div>
+              <h3><?= htmlspecialchars($blog['title']) ?></h3>
+              <p class="meta" style="margin-top: 8px;">
+                <?= date('F j, Y', strtotime($blog['created_at'])) ?>
+                <?php if ($blog['updated_at'] != $blog['created_at']): ?>
+                  · <em>updated <?= date('F j, Y', strtotime($blog['updated_at'])) ?></em>
+                <?php endif; ?>
+              </p>
+            </div>
           </div>
           <div style="display: flex; gap: 10px;">
             <a href="blog.php?id=<?= $blog['id'] ?>" class="btn btn-secondary">View</a>
