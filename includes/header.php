@@ -20,7 +20,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <nav style="border-bottom: 1px solid var(--border); padding: 20px 0;">
   <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
     <a href="/blog-application/index.php"><h3>Byte<span class="logo-cursor">_</span>Log</h3></a>
-    <div style="display: flex; gap: 24px; align-items: center; font-size: 0.9rem;">
+
+    <!-- Desktop nav links -->
+    <div class="nav-links" style="display: flex; gap: 24px; align-items: center; font-size: 0.9rem;">
       <a href="/blog-application/index.php">Home</a>
       <?php if ($isLoggedIn): ?>
         <a href="/blog-application/dashboard.php">My Blogs</a>
@@ -31,5 +33,30 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <a href="/blog-application/register.php" class="btn btn-primary" style="padding: 8px 18px;">Sign Up</a>
       <?php endif; ?>
     </div>
+
+    <!-- Mobile hamburger button -->
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="/blog-application/index.php">Home</a>
+    <?php if ($isLoggedIn): ?>
+      <a href="/blog-application/dashboard.php">My Blogs</a>
+      <a href="/blog-application/create-blog.php">+ New Post</a>
+      <a href="/blog-application/logout.php">Logout</a>
+    <?php else: ?>
+      <a href="/blog-application/login.php">Sign In</a>
+      <a href="/blog-application/register.php">Sign Up</a>
+    <?php endif; ?>
   </div>
 </nav>
+
+<script>
+document.getElementById('menuToggle').addEventListener('click', function() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  this.classList.toggle('active');
+});
+</script>
