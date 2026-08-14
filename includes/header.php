@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +22,14 @@
     <a href="/blog-application/index.php"><h3>Byte<span class="logo-cursor">_</span>Log</h3></a>
     <div style="display: flex; gap: 24px; align-items: center; font-size: 0.9rem;">
       <a href="/blog-application/index.php">Home</a>
-      <a href="/blog-application/login.php" class="btn btn-secondary" style="padding: 8px 18px;">Sign In</a>
-      <a href="/blog-application/register.php" class="btn btn-primary" style="padding: 8px 18px;">Sign Up</a>
+      <?php if ($isLoggedIn): ?>
+        <a href="/blog-application/dashboard.php">My Blogs</a>
+        <a href="/blog-application/create-blog.php" class="btn btn-secondary" style="padding: 8px 18px;">+ New Post</a>
+        <a href="/blog-application/logout.php" class="btn btn-primary" style="padding: 8px 18px;">Logout</a>
+      <?php else: ?>
+        <a href="/blog-application/login.php" class="btn btn-secondary" style="padding: 8px 18px;">Sign In</a>
+        <a href="/blog-application/register.php" class="btn btn-primary" style="padding: 8px 18px;">Sign Up</a>
+      <?php endif; ?>
     </div>
   </div>
 </nav>
