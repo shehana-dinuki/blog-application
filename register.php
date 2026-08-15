@@ -18,8 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Please enter a valid email address.";
     }
-    if (strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters long.";
+    if (strlen($password) < 8) {
+        $errors[] = "Password must be at least 8 characters long.";
+    }
+    if (!preg_match('/[0-9]/', $password)) {
+        $errors[] = "Password must contain at least one number.";
+    }
+    if (!preg_match('/[^a-zA-Z0-9]/', $password)) {
+        $errors[] = "Password must contain at least one symbol (e.g. ! @ # $ %).";
     }
     if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match.";
@@ -82,6 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
+      <p class="meta" style="margin-top: 6px; color: var(--text-muted);">
+        At least 8 characters, with 1 number and 1 symbol
+      </p>
     </div>
 
     <div class="form-group">

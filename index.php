@@ -2,13 +2,28 @@
 session_start();
 require 'config/database.php';
 
-// Fetch all blogs with their author's username, newest first
-$stmt = $pdo->query("
-    SELECT blogPost.id, blogPost.title, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
-    FROM blogPost
-    JOIN user ON blogPost.user_id = user.id
-    ORDER BY blogPost.created_at DESC
-");
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if ($search !== '') {
+    // Search in title OR content
+    $stmt = $pdo->prepare("
+        SELECT blogPost.id, blogPost.title, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
+        FROM blogPost
+        JOIN user ON blogPost.user_id = user.id
+        WHERE blogPost.title LIKE ? OR blogPost.content LIKE ?
+        ORDER BY blogPost.created_at DESC
+    ");
+    $likeTerm = '%' . $search . '%';
+    $stmt->execute([$likeTerm, $likeTerm]);
+} else {
+    // No search — show everything
+    $stmt = $pdo->query("
+        SELECT blogPost.id, blogPost.title, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
+        FROM blogPost
+        JOIN user ON blogPost.user_id = user.id
+        ORDER BY blogPost.created_at DESC
+    ");
+}
 $blogs = $stmt->fetchAll();
 
 // Cycle through cover styles and symbols for visual variety
@@ -25,9 +40,37 @@ $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
   </p>
 </header>
 
+<div class="container" style="max-width: 500px; margin: 0 auto 20px;">
+  <form method="GET" action="index.php" style="display: flex; gap: 10px;">
+    <input type="text" name="search" placeholder="Search posts..." value="<?= htmlspecialchars($search) ?>" style="flex: 1; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: var(--font-body); font-size: 0.95rem;">
+    <button type="submit" class="btn btn-primary">Search</button>
+    <?php if ($search !== ''): ?>
+      <a href="index.php" class="btn btn-secondary">Clear</a>
+    <?php endif; ?>
+  </form>
+</div>
+
 <main class="container" style="padding-bottom: 80px;">
-  <?php if (empty($blogs)): ?>
-    <p style="text-align: center; color: var(--text-muted);">No blog posts yet. Be the first to write one!</p>
+ <?php if (empty($blogs)): ?>
+    <div class="card" style="text-align: center; padding: 60px 20px; max-width: 480px; margin: 0 auto;">
+      <?php if ($search !== ''): ?>
+        <h3>No results found</h3>
+        <p class="meta" style="margin-top: 10px; color: var(--text-muted); font-family: var(--font-body);">
+          Nothing matches "<?= htmlspecialchars($search) ?>". Try a different search term.
+        </p>
+        <a href="index.php" class="btn btn-secondary" style="margin-top: 20px;">Clear search</a>
+      <?php else: ?>
+        <h3>No posts yet</h3>
+        <p class="meta" style="margin-top: 10px; color: var(--text-muted); font-family: var(--font-body);">
+          This is where new posts will appear. Be the first to write one.
+        </p>
+        <?php if (isset($_SESSION['user_id'])): ?>
+          <a href="create-blog.php" class="btn btn-primary" style="margin-top: 20px;">Write a Post</a>
+        <?php else: ?>
+          <a href="register.php" class="btn btn-primary" style="margin-top: 20px;">Sign Up to Get Started</a>
+        <?php endif; ?>
+      <?php endif; ?>
+    </div>
   <?php else: ?>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
       <?php foreach ($blogs as $blog): ?>
