@@ -34,7 +34,27 @@
 
 ## Test accounts used
 
-- **User A (owner):** shehana / shehanadinuki@gmail.com
-- **User B (non-owner):** testuser2 / testuser2@example.com
+
 
 Tested by attempting to edit/delete User A's blog post while logged in as User B, both through the UI and by directly typing protected URLs into the browser address bar.
+
+## Database Operations (Group 5)
+
+| Test | Result |
+|---|---|
+| Insertion — new blog post appears in `blogPost` table | ✅ Pass |
+| Retrieval — homepage correctly displays existing posts | ✅ Pass |
+| Update — editing a post updates `title`/`content`/`updated_at` in DB | ✅ Pass |
+| Deletion — deleting a post removes its row from `blogPost` | ✅ Pass |
+| Foreign key — every `blogPost.user_id` matches a real row in `user` table | ✅ Pass |
+
+##  Features Tested
+
+| Feature | Result |
+|---|---|
+| Blog search (title/content) | ✅ Pass |
+| Empty state (no search results) | ✅ Pass |
+| Rich text formatting (bold/italic/code/heading) | ✅ Pass |
+| Password complexity validation (8+ chars, number, symbol) | ✅ Pass |
+| Responsive layout (desktop/tablet/mobile) | ✅ Pass |
+| Mobile hamburger navigation | ✅ Pass |
