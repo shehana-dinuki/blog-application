@@ -88,9 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <p class="meta" style="margin-top: 6px; color: var(--text-muted);">JPG, PNG, WEBP or GIF — max 5MB</p>
     </div>
     
-    <div class="form-group">
+   <div class="form-group">
       <label for="content">Content</label>
+      <div class="editor-toolbar">
+        <button type="button" class="tb-bold" onclick="wrapSelection('content', '**', '**')" title="Bold">B</button>
+        <button type="button" class="tb-italic" onclick="wrapSelection('content', '*', '*')" title="Italic">I</button>
+        <button type="button" class="tb-code" onclick="wrapSelection('content', '\`', '\`')" title="Code">&lt;/&gt;</button>
+        <button type="button" onclick="wrapSelection('content', '## ', '')" title="Heading">H</button>
+      </div>
       <textarea id="content" name="content" rows="12" required><?= isset($content) ? htmlspecialchars($content) : '' ?></textarea>
+      <p class="meta" style="margin-top: 6px; color: var(--text-muted);">Select text and click a button to format it</p>
     </div>
 
     <div style="display: flex; gap: 12px;">

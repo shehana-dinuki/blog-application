@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'config/database.php';
+require 'includes/functions.php';
 
 // Get the blog ID from the URL, e.g. blog.php?id=3
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -58,8 +59,8 @@ $isOwner = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $blog['user_id
     </div>
   <?php endif; ?>
 
-  <div style="margin-top: 32px; line-height: 1.8; white-space: pre-wrap;">
-    <?= nl2br(htmlspecialchars($blog['content'])) ?>
+  <div style="margin-top: 32px; line-height: 1.8;" class="blog-content">
+    <?= formatBlogContent($blog['content']) ?>
   </div>
 </div>
 
