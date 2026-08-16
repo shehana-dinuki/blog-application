@@ -299,10 +299,31 @@ a { color: inherit; text-decoration: none; }
 
 /* Mobile */
 @media (max-width: 600px) {
-  h1 { font-size: 1.6rem; }
+  h1 { font-size: 1.6rem; line-height: 1.3; }
+  h2 { font-size: 1.4rem; line-height: 1.3; }
+  h3 { font-size: 1.15rem; }
 
-  .container {
-    padding: 0 var(--space-3);
+  body { font-size: 15px; }
+
+  .container { padding: 0 20px; }
+
+  p, .meta { 
+    line-height: 1.7;
+    word-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* Give hero text more breathing room and prevent awkward wraps */
+  header.hero-glow h1,
+  .why-blog-heading h2 {
+    padding: 0 4px;
+  }
+  header.hero-glow p,
+  .why-blog-heading p {
+    padding: 0 8px;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .stat-grid,
