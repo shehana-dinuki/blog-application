@@ -29,6 +29,9 @@ $blogs = $stmt->fetchAll();
 // Cycle through cover styles and symbols for visual variety
 $coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
 $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
+$coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
+$coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
+$borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'post-border-teal', 'post-border-green', 'post-border-violet'];
 ?>
 <?php require 'includes/header.php'; ?>
 
@@ -49,9 +52,43 @@ $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
     <?php endif; ?>
   </form>
 </div>
+<section class="container why-blog">
+  <div class="why-blog-heading reveal">
+    <h2>Your Ideas. Your Voice. Your Story.</h2>
+    <p>Every developer has something worth writing about. Here's why it's worth starting today.</p>
+  </div>
 
-<main class="container" style="padding-bottom: 80px;">
- <?php if (empty($blogs)): ?>
+  <div class="feature-grid">
+   <div class="card feature-card-violet reveal">
+      <div class="feature-icon fi-violet">✍️</div>
+      <h3>Share Your Ideas</h3>
+      <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Turn your thoughts into meaningful stories.</p>
+    </div>
+    <div class="card feature-card-blue reveal reveal-delay-1">
+      <div class="feature-icon fi-blue">🧠</div>
+      <h3>Learn &amp; Grow</h3>
+      <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Explore topics and deepen your knowledge.</p>
+    </div>
+    <div class="card feature-card-pink reveal reveal-delay-2">
+      <div class="feature-icon fi-pink">💬</div>
+      <h3>Connect With Others</h3>
+      <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Find people who share your interests.</p>
+    </div>
+    <div class="card feature-card-teal reveal reveal-delay-3">
+      <div class="feature-icon fi-teal">💼</div>
+      <h3>Build Your Identity</h3>
+      <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Showcase your knowledge, creativity, and skills.</p>
+    </div>
+    <div class="card feature-card-amber reveal">
+      <div class="feature-icon fi-amber">🚀</div>
+      <h3>Grow Through Writing</h3>
+      <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Improve your writing with every story.</p>
+    </div>
+</section>
+
+
+<main class="container" id="latest" style="padding-bottom: 80px;">
+  <?php if (empty($blogs)): ?>
     <div class="card" style="text-align: center; padding: 60px 20px; max-width: 480px; margin: 0 auto;">
       <?php if ($search !== ''): ?>
         <h3>No results found</h3>
@@ -74,8 +111,8 @@ $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
   <?php else: ?>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
       <?php foreach ($blogs as $blog): ?>
-        <?php $coverIndex = $blog['id'] % count($coverStyles); ?>
-        <a href="blog.php?id=<?= $blog['id'] ?>" class="card card-with-image">
+       <?php $coverIndex = $blog['id'] % count($coverStyles); ?>
+        <a href="blog.php?id=<?= $blog['id'] ?>" class="card card-with-image <?= $borderStyles[$coverIndex] ?>">
           <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
             <img class="card-image" src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="">
           <?php else: ?>

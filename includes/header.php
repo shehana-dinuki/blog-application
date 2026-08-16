@@ -19,7 +19,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 <nav style="border-bottom: 1px solid var(--border); padding: 20px 0;">
   <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-    <a href="/blog-application/index.php"><h3>Byte<span class="logo-cursor">_</span>Log</h3></a>
+   <a href="/blog-application/index.php" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span class="brand-text">ByteLog<span class="logo-cursor">_</span></span>
+    </a>
 
     <!-- Desktop nav links -->
     <div class="nav-links" style="display: flex; gap: 24px; align-items: center; font-size: 0.9rem;">
