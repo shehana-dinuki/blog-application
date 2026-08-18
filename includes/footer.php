@@ -1,22 +1,99 @@
-<footer style="border-top: 1px solid var(--border); margin-top: 80px; padding: 30px 0;">
-  <div class="container" style="text-align: center;">
-    <p class="meta">ByteLog — built for IN2120 Web Programming, 2026</p>
-  </div>
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- ByteLog -->
+        <div class="footer-brand">
+            <a href="/blog-application/index.php" class="footer-logo">
+                Byte<span>Log</span>
+            </a>
+
+            <p>
+                A space to share ideas, explore technology,
+                and learn something new every day.
+            </p>
+        </div>
+
+
+        <!-- Create Blog -->
+        <div class="footer-section">
+            <h3>Actions</h3>
+
+            <ul>
+                <li>
+                    <a href="/blog-application/index.php">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog-application/dashboard.php">
+                        View Blogs
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog-application/create-blog.php">
+                        Create Blog
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- University -->
+        <div class="footer-section">
+            <h3>University</h3>
+
+            <ul>
+                <li>
+                    <a href="https://uom.lk/" target="_blank" rel="noopener noreferrer">
+                        University of Moratuwa
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://uom.lk/itfac" target="_blank" rel="noopener noreferrer">
+                        Faculty of Information Technology
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 ByteLog. All rights reserved.
+        </p>
+
+        <p>
+            Built for <strong>IN2120 Web Programming</strong>
+        </p>
+
+    </div>
+
 </footer>
 
+
 <script src="/blog-application/js/script.js"></script>
+
 <script>
-  // Scroll-reveal: elements fade/slide in as they enter the viewport
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => revealObserver.observe(el));
+    // Scroll-reveal: elements fade/slide in as they enter the viewport
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => revealObserver.observe(el));
 </script>
+
 </body>
 </html>

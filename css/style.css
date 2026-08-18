@@ -753,3 +753,207 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.9em;
   color: var(--accent);
 }
+
+/* =================================
+   FOOTER
+================================= */
+
+.site-footer {
+    margin-top: 80px;
+    background: #121118;
+    border-top: 1px solid var(--border);
+    position: relative;
+}
+
+/* Decorative gradient line */
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #a855f7,
+        #ec4899,
+        transparent
+    );
+}
+
+
+/* =================================
+   MAIN FOOTER
+================================= */
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    padding: 55px 30px 45px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 70px;
+}
+
+
+/* =================================
+   BYTELOG BRAND
+================================= */
+
+.footer-logo {
+    display: inline-block;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+    margin-bottom: 15px;
+}
+
+.footer-logo span {
+    color: #ec4899;
+}
+
+.footer-brand p {
+    max-width: 330px;
+
+    margin: 0;
+
+    color: #9290a0;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* =================================
+   FOOTER SECTIONS
+================================= */
+
+.footer-section h3 {
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    margin: 0 0 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 13px;
+}
+
+.footer-section ul li a {
+    color: #9290a0;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: all 0.25s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ec4899;
+    padding-left: 4px;
+}
+
+
+/* =================================
+   FOOTER BOTTOM
+================================= */
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    padding: 22px 30px;
+
+    border-top: 1px solid #292731;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #777484;
+
+    font-size: 13px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-bottom strong {
+    color: #aaa7b8;
+    font-weight: 500;
+}
+
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 800px) {
+
+    .footer-container {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 45px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .site-footer {
+        margin-top: 60px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+
+        padding: 45px 22px 35px;
+
+        gap: 32px;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+    .footer-brand p {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        padding: 20px 22px;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        text-align: center;
+    }
+}
