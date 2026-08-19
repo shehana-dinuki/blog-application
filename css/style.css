@@ -333,6 +333,12 @@ a { color: inherit; text-decoration: none; }
   }
 
   /* Nav bar: stack logo and links, shrink link text */
+
+  nav {
+  position: relative;
+  z-index: 10000;
+}
+
   nav .container {
     flex-wrap: wrap;
     gap: 12px;
@@ -391,32 +397,91 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Mobile dropdown menu */
 .mobile-menu {
   display: none;
   flex-direction: column;
-  gap: 4px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.25s ease;
-}
-.mobile-menu.open {
-  max-height: 300px;
-}
-.mobile-menu a {
-  padding: 12px var(--space-4);
+  gap: 0;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  background: var(--bg);
   border-top: 1px solid var(--border);
-  font-size: 0.95rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+
+  z-index: 9999;
+
+  max-height: none;
+  overflow: visible;
+
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.mobile-menu.open {
+  display: flex;
+
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu a {
+  display: block;
+  width: 100%;
+
+  padding: 16px 28px;
+
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+
+  font-size: 1rem;
+}
+
+.mobile-menu a:hover {
+  background: var(--surface-hover);
+  color: var(--accent);
 }
 
 @media (max-width: 700px) {
+  nav {
+    position: relative;
+    z-index: 10000;
+  }
+
   .nav-links {
     display: none !important;
   }
+
   .menu-toggle {
     display: flex;
   }
+
   .mobile-menu {
     display: flex;
+  }
+
+  .mobile-menu:not(.open) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
 /* ==========================================================================
@@ -425,19 +490,27 @@ a { color: inherit; text-decoration: none; }
 
 .auth-wrapper {
   position: relative;
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 100px);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
   padding: 40px 20px;
+
+  background: var(--bg);
 }
+
 .auth-svg-bg {
   position: absolute;
-  inset: -10%;
-  width: 120%;
-  height: 120%;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
   z-index: 0;
+  pointer-events: none;
 }
 
 .trail {
@@ -955,5 +1028,422 @@ a { color: inherit; text-decoration: none; }
         gap: 8px;
 
         text-align: center;
+    }
+}
+
+/* ==========================================================================
+   GLOBAL RESPONSIVE FIXES
+   These overrides are intentionally placed at the end so they take
+   precedence over earlier rules and inline-layout-related selectors.
+   ========================================================================== */
+
+/* Prevent any element from forcing the page wider than the viewport */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+    max-width: 100%;
+}
+
+.container,
+.footer-container,
+.footer-bottom {
+    width: 100%;
+    max-width: var(--max-width);
+    min-width: 0;
+}
+
+.container > *,
+.footer-container > * {
+    min-width: 0;
+}
+
+/* Grid children must be allowed to shrink */
+.grid,
+.feature-grid,
+.stat-grid,
+[class*="grid"] > *,
+.feature-grid > .card {
+    min-width: 0;
+}
+
+/* Cards must never exceed their parent */
+.card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.card p,
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card a,
+.card span {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Make cover/image elements shrink safely */
+.card-cover,
+.card-image {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Buttons and links containing long text */
+.btn {
+    max-width: 100%;
+    white-space: normal;
+}
+
+/* Forms */
+.form-group,
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Feature grid */
+.feature-grid {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.feature-grid > .card {
+    min-width: 0;
+}
+
+/* Spotlight */
+.spotlight {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.spotlight > *,
+.spotlight-body,
+.spotlight-media {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Auth card */
+.auth-wrapper {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    min-width: 0;
+}
+
+/* Editor */
+.editor-toolbar {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: wrap;
+}
+
+#content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Navigation */
+nav,
+nav .container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+nav .container > * {
+    min-width: 0;
+}
+
+.brand,
+.nav-links {
+    min-width: 0;
+}
+
+.brand-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   Tablet
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .spotlight {
+        grid-template-columns: 1fr;
+    }
+
+    .spotlight-media {
+        min-height: 240px;
+    }
+
+    .footer-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Fix common inline max-width containers */
+    main > div,
+    section > div {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* Feature cards */
+    .feature-grid {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 16px;
+    }
+
+    .feature-grid > .card,
+    .feature-grid .card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* All normal cards */
+    .card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 16px;
+    }
+
+    /* Keep images inside cards */
+    .card-cover,
+    .card-image {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-image {
+        height: auto;
+        min-height: 140px;
+        max-height: 220px;
+        object-fit: cover;
+    }
+
+    /* Spotlight */
+    .spotlight {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .spotlight-media {
+        width: 100%;
+        min-height: 190px;
+        padding: 16px;
+    }
+
+    .spotlight-body {
+        width: 100%;
+        padding: 20px 16px;
+    }
+
+    /* Authentication pages */
+    .auth-wrapper {
+        width: 100%;
+        padding: 24px 16px;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 28px 20px;
+    }
+
+    /* Navigation */
+    nav .container {
+        width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .brand-text {
+        font-size: 1.1rem;
+    }
+
+    /* Prevent long navigation/content strings from overflowing */
+    .nav-links,
+    .mobile-menu,
+    .meta,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    a,
+    span {
+        max-width: 100%;
+    }
+
+    /* Buttons */
+    .btn {
+        max-width: 100%;
+        padding: 10px 16px;
+    }
+
+    /* Editor toolbar */
+    .editor-toolbar {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .editor-toolbar button {
+        flex: 0 0 34px;
+    }
+
+    /* Footer */
+    .footer-container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .footer-bottom {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Fix flex rows that contain long content */
+    .card[style*="display: flex"],
+    .card[style*="justify-content"] {
+        min-width: 0;
+    }
+
+    .card[style*="display: flex"] > *,
+    .card[style*="justify-content"] > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Very small phones
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 380px) {
+
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .auth-wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .auth-card {
+        padding: 24px 16px;
+    }
+
+    h1 {
+        font-size: 1.45rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.05rem;
+    }
+
+    .btn {
+        padding: 9px 12px;
+        font-size: 0.9rem;
+    }
+
+    .footer-container,
+    .footer-bottom {
+        padding-left: 12px;
+        padding-right: 12px;
     }
 }
