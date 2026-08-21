@@ -104,7 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <div class="password-wrapper">
+    <input type="password" id="password" name="password" required>
+    <button type="button" class="password-toggle" onclick="togglePassword('password', this)">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+    </button>
+</div>
         <p class="meta" style="margin-top: 6px; color: var(--text-muted);">
           At least 8 characters, with 1 number and 1 symbol
         </p>

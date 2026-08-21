@@ -8,3 +8,14 @@ function wrapSelection(textareaId, before, after) {
   textarea.setRangeText(replacement, start, end, 'select');
   textarea.focus();
 }
+function togglePassword(inputId, button) {
+    const input = document.getElementById(inputId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        button.classList.add("show");
+    } else {
+        input.type = "password";
+        button.classList.remove("show");
+    }
+}

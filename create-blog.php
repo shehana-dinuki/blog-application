@@ -9,9 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $errors = [];
+$categories = ['General', 'PHP', 'MySQL', 'JavaScript', 'Web Dev', 'Tutorial'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
+    $category = in_array($_POST['category'], $categories) ? $_POST['category'] : 'General';
     $coverImage = null;
 
     if (empty($title) || empty($content)) {
@@ -50,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO blogPost (user_id, title, content, cover_image) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$_SESSION['user_id'], $title, $content, $coverImage]);
+      if (empty($errors)) {
+        $stmt = $pdo->prepare("INSERT INTO blogPost (user_id, title, category, content, cover_image) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$_SESSION['user_id'], $title, $category, $content, $coverImage]);
         $newBlogId = $pdo->lastInsertId();
 
         header("Location: blog.php?id=" . $newBlogId);
@@ -77,11 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
 
   <form method="POST" action="create-blog.php" enctype="multipart/form-data">
-    <div class="form-group">
+      <div class="form-group">
       <label for="title">Title</label>
       <input type="text" id="title" name="title" value="<?= isset($title) ? htmlspecialchars($title) : '' ?>" required>
     </div>
-    
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <?php foreach ($categories as $cat): ?>
+          <option value="<?= $cat ?>" <?= (isset($category) && $category === $cat) ? 'selected' : '' ?>><?= $cat ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+
     <div class="form-group">
       <label for="cover_image">Cover Image (optional)</label>
       <input type="file" id="cover_image" name="cover_image" accept="image/*">

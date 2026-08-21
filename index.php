@@ -3,11 +3,10 @@ session_start();
 require 'config/database.php';
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-
 if ($search !== '') {
     // Search in title OR content
     $stmt = $pdo->prepare("
-        SELECT blogPost.id, blogPost.title, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
+        SELECT blogPost.id, blogPost.title, blogPost.category, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
         FROM blogPost
         JOIN user ON blogPost.user_id = user.id
         WHERE blogPost.title LIKE ? OR blogPost.content LIKE ?
@@ -18,7 +17,7 @@ if ($search !== '') {
 } else {
     // No search — show everything
     $stmt = $pdo->query("
-        SELECT blogPost.id, blogPost.title, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
+        SELECT blogPost.id, blogPost.title, blogPost.category, blogPost.content, blogPost.cover_image, blogPost.created_at, user.username
         FROM blogPost
         JOIN user ON blogPost.user_id = user.id
         ORDER BY blogPost.created_at DESC
@@ -30,6 +29,15 @@ $blogs = $stmt->fetchAll();
 $coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
 $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
 $borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'post-border-teal', 'post-border-green', 'post-border-violet'];
+
+$categoryTagClass = [
+    'PHP' => 'tag-amber',
+    'MySQL' => 'tag-blue',
+    'Web Dev' => 'tag-pink',
+    'JavaScript' => 'tag-teal',
+    'Tutorial' => 'tag-green',
+    'General' => 'tag-violet',
+];
 ?>
 <?php require 'includes/header.php'; ?>
 
@@ -127,13 +135,14 @@ $borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'p
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
       <?php foreach ($blogs as $blog): ?>
        <?php $coverIndex = $blog['id'] % count($coverStyles); ?>
-        <a href="blog.php?id=<?= $blog['id'] ?>" class="card card-with-image <?= $borderStyles[$coverIndex] ?>">
+               <a href="blog.php?id=<?= $blog['id'] ?>" class="card card-with-image <?= $borderStyles[$coverIndex] ?>">
           <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
             <img class="card-image" src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="">
           <?php else: ?>
             <div class="card-cover <?= $coverStyles[$coverIndex] ?>"><?= $coverSymbols[$coverIndex] ?></div>
           <?php endif; ?>
-          <h3><?= htmlspecialchars($blog['title']) ?></h3>
+          <span class="tag <?= $categoryTagClass[$blog['category']] ?? 'tag-violet' ?>"><?= htmlspecialchars($blog['category']) ?></span>
+          <h3 style="margin-top: 10px;"><?= htmlspecialchars($blog['title']) ?></h3>
           <p class="meta" style="margin-top: 12px;">
             By <?= htmlspecialchars($blog['username']) ?> · <?= date('M j, Y', strtotime($blog['created_at'])) ?>
           </p>

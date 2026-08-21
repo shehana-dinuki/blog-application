@@ -26,14 +26,17 @@ if ($blog['user_id'] != $_SESSION['user_id']) {
     header("Location: index.php");
     exit;
 }
+$categories = ['General', 'PHP', 'MySQL', 'JavaScript', 'Web Dev', 'Tutorial'];
 
 $errors = [];
 $title = $blog['title'];
 $content = $blog['content'];
+$category = $blog['category'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
+    $category = in_array($_POST['category'], $categories) ? $_POST['category'] : 'General';
     $coverImage = $blog['cover_image']; // keep existing image by default
 
     if (empty($title) || empty($content)) {
@@ -84,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (empty($errors)) {
-        $stmt = $pdo->prepare("UPDATE blogPost SET title = ?, content = ?, cover_image = ? WHERE id = ? AND user_id = ?");
-        $stmt->execute([$title, $content, $coverImage, $id, $_SESSION['user_id']]);
+        if (empty($errors)) {
+        $stmt = $pdo->prepare("UPDATE blogPost SET title = ?, category = ?, content = ?, cover_image = ? WHERE id = ? AND user_id = ?");
+        $stmt->execute([$title, $category, $content, $coverImage, $id, $_SESSION['user_id']]);
 
         header("Location: blog.php?id=" . $id);
         exit;
@@ -110,9 +113,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
 
   <form method="POST" action="edit-blog.php?id=<?= $id ?>" enctype="multipart/form-data">
-    <div class="form-group">
+       <div class="form-group">
       <label for="title">Title</label>
       <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <?php foreach ($categories as $cat): ?>
+          <option value="<?= $cat ?>" <?= ($category === $cat) ? 'selected' : '' ?>><?= $cat ?></option>
+        <?php endforeach; ?>
+      </select>
     </div>
 
     <div class="form-group">

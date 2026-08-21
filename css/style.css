@@ -1,5 +1,4 @@
-/* 
-   ByteLog UI design */
+/* ByteLog UI design */
 
 :root {
   /* common Colors */
@@ -138,6 +137,7 @@ a { color: inherit; text-decoration: none; }
   border-color: #2F5A99;
 }
 
+
 /* Pink — frontend */
 .tag-pink {
   color: #FF6B9D;
@@ -206,12 +206,17 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-body);
   font-size: 0.95rem;
 }
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--accent);
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
 }
-
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
 /* Hero with subtle color glow */
 .hero-glow {
   position: relative;
@@ -283,9 +288,7 @@ a { color: inherit; text-decoration: none; }
   padding: var(--space-3);
 }
 
-/* ==========================================================================
-   Responsive Design
-   ========================================================================== */
+/*Responsive Design */
 
 /* Tablet and below */
 @media (max-width: 900px) {
@@ -337,9 +340,7 @@ a { color: inherit; text-decoration: none; }
 
 }
 
-/* ==========================================================================
-   Mobile Hamburger Menu
-   ========================================================================== */
+/*Mobile hamburger */
 
 .menu-toggle {
   display: none;
@@ -457,9 +458,8 @@ a { color: inherit; text-decoration: none; }
     transform: translateY(0);
   }
 }
-/* ==========================================================================
-   Auth Pages — Animated Glassmorphism
-   ========================================================================== */
+/* 
+   Auth page*/
 
 .auth-wrapper {
   position: relative;
@@ -547,9 +547,7 @@ a { color: inherit; text-decoration: none; }
   .auth-blob { animation: none; }
 }
 
-/* ==========================================================================
-   Featured Post Spotlight
-   ========================================================================== */
+/*Featured Post Spotlight */
 .spotlight {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -599,9 +597,7 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* ==========================================================================
-   Why Blog — Feature Section
-   ========================================================================== */
+/* Feature Section*/
 .why-blog {
   padding: 30px 0 90px;
   text-align: center;
@@ -708,9 +704,7 @@ a { color: inherit; text-decoration: none; }
   .feature-grid { grid-template-columns: 1fr; }
 }
 
-/* ==========================================================================
-   Logo / Brand
-   ========================================================================== */
+/*Logo */
 .brand {
   display: flex;
   align-items: center;
@@ -749,9 +743,7 @@ a { color: inherit; text-decoration: none; }
 .post-border-green:hover  { box-shadow: 0 16px 40px rgba(74,222,128,0.25) !important; }
 
 
-/* ==========================================================================
-   Editor Toolbar
-   ========================================================================== */
+/*edit*/
 .editor-toolbar {
   display: flex;
   gap: 6px;
@@ -800,9 +792,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--accent);
 }
 
-/* =================================
-   FOOTER
-================================= */
+/*footer*/
 
 .site-footer {
     margin-top: 80px;
@@ -829,9 +819,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   MAIN FOOTER
-================================= */
+/* main footer */
 
 .footer-container {
     max-width: 1100px;
@@ -845,9 +833,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   BYTELOG BRAND
-================================= */
+/* logo footer*/
 
 .footer-logo {
     display: inline-block;
@@ -879,9 +865,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   FOOTER SECTIONS
-================================= */
+/* section of footer */
 
 .footer-section h3 {
     color: #ffffff;
@@ -919,9 +903,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   FOOTER BOTTOM
-================================= */
+/* last line footer */
 
 .footer-bottom {
     max-width: 1100px;
@@ -950,9 +932,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   TABLET
-================================= */
+/* tablet responsive*/
 
 @media (max-width: 800px) {
 
@@ -967,9 +947,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* =================================
-   MOBILE
-================================= */
+/* mobile responsive*/
 
 @media (max-width: 600px) {
 
@@ -1004,13 +982,7 @@ a { color: inherit; text-decoration: none; }
     }
 }
 
-/* ==========================================================================
-   GLOBAL RESPONSIVE FIXES
-   These overrides are intentionally placed at the end so they take
-   precedence over earlier rules and inline-layout-related selectors.
-   ========================================================================== */
-
-/* Prevent any element from forcing the page wider than the viewport */
+/* responsive fix */
 html,
 body {
     width: 100%;
@@ -1052,7 +1024,7 @@ button {
     min-width: 0;
 }
 
-/* Grid children must be allowed to shrink */
+
 .grid,
 .feature-grid,
 .stat-grid,
@@ -1061,7 +1033,7 @@ button {
     min-width: 0;
 }
 
-/* Cards must never exceed their parent */
+
 .card {
     width: 100%;
     max-width: 100%;
@@ -1080,14 +1052,14 @@ button {
     word-break: normal;
 }
 
-/* Make cover/image elements shrink safely */
+/* Make cover */
 .card-cover,
 .card-image {
     width: 100%;
     max-width: 100%;
 }
 
-/* Buttons and links containing long text */
+/* Buttons and links */
 .btn {
     max-width: 100%;
     white-space: normal;
@@ -1175,9 +1147,7 @@ nav .container > * {
     overflow-wrap: anywhere;
 }
 
-/* --------------------------------------------------------------------------
-   Tablet
-   -------------------------------------------------------------------------- */
+/* Tablet*/
 
 @media (max-width: 900px) {
 
@@ -1206,9 +1176,7 @@ nav .container > * {
     }
 }
 
-/* --------------------------------------------------------------------------
-   Mobile
-   -------------------------------------------------------------------------- */
+/*  Mobile*/
 
 @media (max-width: 600px) {
 
@@ -1363,9 +1331,8 @@ nav .container > * {
     
 }
 
-/* --------------------------------------------------------------------------
-   Very small phones
-   -------------------------------------------------------------------------- */
+/* 
+   Very small phone*/
 
 @media (max-width: 380px) {
 
@@ -1411,9 +1378,8 @@ nav .container > * {
     }
 }
 
-/* =========================================================
-   SEARCH BAR
-   ========================================================= */
+/*
+   search bar*/
 
 .search-container {
     max-width: 500px;
@@ -1447,9 +1413,7 @@ nav .container > * {
 }
 
 
-/* =========================================================
-   MOBILE SEARCH
-   ========================================================= */
+/* responsive */
 
 @media (max-width: 600px) {
 
@@ -1481,9 +1445,7 @@ nav .container > * {
         white-space: nowrap;
     }
 }
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
+/* dashboard*/
 
 .dashboard-container {
     padding: 60px 0;
@@ -1540,9 +1502,7 @@ nav .container > * {
     border-color: var(--danger) !important;
     color: var(--danger) !important;
 }
-/* =========================================================
-   DASHBOARD MOBILE
-   ========================================================= */
+/* dashboard responsive */
 
 @media (max-width: 600px) {
 
@@ -1625,9 +1585,7 @@ nav .container > * {
         width: 100%;
     }
 }
-/* =========================================================
-   BLOG PAGE
-   ========================================================= */
+/* blog page*/
 
 .blog-page-container {
     max-width: 700px;
@@ -1700,9 +1658,7 @@ nav .container > * {
     overflow-wrap: anywhere;
     word-break: break-word;
 }
-/* =========================================================
-   BLOG PAGE - MOBILE
-   ========================================================= */
+/* blog page responsive */
 
 @media (max-width: 600px) {
 
@@ -1763,9 +1719,7 @@ nav .container > * {
         max-width: 100%;
     }
 }
-/* =========================================================
-   EDIT BLOG PAGE
-   ========================================================= */
+/* edit blog page*/
 
 .edit-page-container {
     max-width: 700px;
@@ -1823,9 +1777,7 @@ nav .container > * {
 .edit-form-actions form {
     margin: 0;
 }
-/* =========================================================
-   EDIT BLOG - MOBILE
-   ========================================================= */
+/* edit blog page */
 
 @media (max-width: 600px) {
 
@@ -1914,9 +1866,7 @@ nav .container > * {
     }
 }
 
-/* =========================================================
-   CREATE BLOG PAGE
-   ========================================================= */
+/* creat blog page*/
 
 .create-page-container {
     max-width: 700px;
@@ -1949,9 +1899,7 @@ nav .container > * {
     gap: 12px;
     align-items: center;
 }
-/* =========================================================
-   CREATE BLOG - MOBILE
-   ========================================================= */
+/* creat blog page responsive */
 
 @media (max-width: 600px) {
 
@@ -2078,7 +2026,52 @@ nav .container > * {
     justify-content: center;
   }
 }
+.password-wrapper {
+    position: relative;
+}
 
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.password-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.password-toggle:hover {
+    color: var(--accent);
+}
+
+.password-toggle.show svg {
+    opacity: 0.8;
+}
+.password-toggle.show::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    pointer-events: none;
+}
 
 
 
