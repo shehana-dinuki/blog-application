@@ -95,14 +95,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <?php require 'includes/header.php'; ?>
 
-<div class="container" style="max-width: 700px; padding: 60px 0;">
+<div class="container edit-page-container">
   <h1 style="margin-bottom: 8px;">Edit post</h1>
   <p class="meta" style="margin-bottom: 32px; font-family: var(--font-body); color: var(--text-muted);">
     Update your blog post
   </p>
 
   <?php if (!empty($errors)): ?>
-    <div style="background: rgba(239, 83, 80, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 20px;">
+    <div class="edit-error-box">
       <?php foreach ($errors as $error): ?>
         <p style="color: var(--danger); font-size: 0.9rem;">⚠ <?= htmlspecialchars($error) ?></p>
       <?php endforeach; ?>
@@ -118,9 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-group">
       <label for="cover_image">Cover Image</label>
       <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
-        <div style="margin-bottom: 10px;">
-          <img src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="" style="max-width: 200px; border-radius: var(--radius-sm); display: block; margin-bottom: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); font-weight: 400;">
+        <div class="current-image-section">
+          <img
+    src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>"
+    alt=""
+    class="edit-cover-image"
+>
+          <label class="remove-image-label">
             <input type="checkbox" name="remove_image" value="1" style="width: auto;">
             Remove current image
           </label>
@@ -141,8 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <textarea id="content" name="content" rows="12" required><?= htmlspecialchars($content) ?></textarea>
       <p class="meta" style="margin-top: 6px; color: var(--text-muted);">Select text and click a button to format it</p>
     </div>
-
-    <div style="display: flex; gap: 12px;">
+<div class="edit-form-actions">
       <button type="submit" class="btn btn-primary">Save Changes</button>
       <a href="blog.php?id=<?= $id ?>" class="btn btn-secondary">Cancel</a>
     </div>

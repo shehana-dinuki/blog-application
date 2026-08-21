@@ -62,14 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <?php require 'includes/header.php'; ?>
 
-<div class="container" style="max-width: 700px; padding: 60px 0;">
+<div class="container create-page-container">
   <h1 style="margin-bottom: 8px;">Write a new post</h1>
-  <p class="meta" style="margin-bottom: 32px; font-family: var(--font-body); color: var(--text-muted);">
+ <p class="meta create-page-description">
     Share something with the ByteLog community
   </p>
 
   <?php if (!empty($errors)): ?>
-    <div style="background: rgba(239, 83, 80, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 20px;">
+    <div class="create-error-box">
       <?php foreach ($errors as $error): ?>
         <p style="color: var(--danger); font-size: 0.9rem;">⚠ <?= htmlspecialchars($error) ?></p>
       <?php endforeach; ?>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-group">
       <label for="cover_image">Cover Image (optional)</label>
       <input type="file" id="cover_image" name="cover_image" accept="image/*">
-      <p class="meta" style="margin-top: 6px; color: var(--text-muted);">JPG, PNG, WEBP or GIF — max 5MB</p>
+      <p class="meta create-help-text">JPG, PNG, WEBP or GIF — max 5MB</p>
     </div>
     
    <div class="form-group">
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <p class="meta" style="margin-top: 6px; color: var(--text-muted);">Select text and click a button to format it</p>
     </div>
 
-    <div style="display: flex; gap: 12px;">
+    <div class="create-form-actions">
       <button type="submit" class="btn btn-primary">Publish Post</button>
       <a href="index.php" class="btn btn-secondary">Cancel</a>
     </div>

@@ -2,7 +2,7 @@
 
     <div class="footer-container">
 
-        <!-- ByteLog -->
+        <!-- ByteLog name -->
         <div class="footer-brand">
             <a href="/blog-application/index.php" class="footer-logo">
                 Byte<span>Log</span>
@@ -15,7 +15,7 @@
         </div>
 
 
-        <!-- Create Blog -->
+        <!-- Actions -->
         <div class="footer-section">
             <h3>Actions</h3>
 
@@ -39,7 +39,7 @@
         </div>
 
 
-        <!-- University -->
+        <!-- University links -->
         <div class="footer-section">
             <h3>University</h3>
 
@@ -61,7 +61,7 @@
     </div>
 
 
-    <!-- Footer Bottom -->
+    <!-- Footer bottem line -->
     <div class="footer-bottom">
 
         <p>
@@ -80,7 +80,7 @@
 <script src="/blog-application/js/script.js"></script>
 
 <script>
-    // Scroll-reveal: elements fade/slide in as they enter the viewport
+    // js script
     const revealEls = document.querySelectorAll('.reveal');
 
     const revealObserver = new IntersectionObserver((entries) => {

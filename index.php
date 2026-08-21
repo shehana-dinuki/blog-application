@@ -29,8 +29,6 @@ $blogs = $stmt->fetchAll();
 // Cycle through cover styles and symbols for visual variety
 $coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
 $coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
-$coverStyles = ['cover-amber', 'cover-blue', 'cover-pink', 'cover-teal', 'cover-green', 'cover-violet'];
-$coverSymbols = ['</>', 'DB', '{ }', 'JS', 'API', '#'];
 $borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'post-border-teal', 'post-border-green', 'post-border-violet'];
 ?>
 <?php require 'includes/header.php'; ?>
@@ -42,16 +40,32 @@ $borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'p
     A blog for developers who like to write things down.
   </p>
 </header>
-
-<div class="container" style="max-width: 500px; margin: 0 auto 20px;">
-  <form method="GET" action="index.php" style="display: flex; gap: 10px;">
-    <input type="text" name="search" placeholder="Search posts..." value="<?= htmlspecialchars($search) ?>" style="flex: 1; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: var(--font-body); font-size: 0.95rem;">
+<div class="container search-container">
+  <form method="GET" action="index.php" class="search-form">
+    <input type="text"
+       name="search"
+       placeholder="Search posts..."
+       value="<?= htmlspecialchars($search) ?>"
+       class="search-input">
     <button type="submit" class="btn btn-primary">Search</button>
     <?php if ($search !== ''): ?>
       <a href="index.php" class="btn btn-secondary">Clear</a>
     <?php endif; ?>
   </form>
 </div>
+
+<div class="container" style="max-width: 500px; margin: 40px auto 24px;">
+  <div class="card cta-card-small">
+    <span class="meta" style="font-family: var(--font-body); color: var(--text-muted);">Have something to share?</span>
+    <?php if (isset($_SESSION['user_id'])): ?>
+      <a href="create-blog.php" class="btn btn-primary">+ Create Blog</a>
+    <?php else: ?>
+      <a href="register.php" class="btn btn-primary">Get Started</a>
+    <?php endif; ?>
+  </div>
+</div>
+
+<?php if ($search === ''): ?>
 <section class="container why-blog">
   <div class="why-blog-heading reveal">
     <h2>Your Ideas. Your Voice. Your Story.</h2>
@@ -79,13 +93,14 @@ $borderStyles = ['post-border-amber', 'post-border-blue', 'post-border-pink', 'p
       <h3>Build Your Identity</h3>
       <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Showcase your knowledge, creativity, and skills.</p>
     </div>
-    <div class="card feature-card-amber reveal">
+      <div class="card feature-card-amber reveal">
       <div class="feature-icon fi-amber">🚀</div>
       <h3>Grow Through Writing</h3>
       <p class="meta" style="margin-top: 10px; font-family: var(--font-body); color: var(--text-muted);">Improve your writing with every story.</p>
     </div>
+  </div>
 </section>
-
+<?php endif; ?>
 
 <main class="container" id="latest" style="padding-bottom: 80px;">
   <?php if (empty($blogs)): ?>

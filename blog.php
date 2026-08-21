@@ -33,14 +33,15 @@ $isOwner = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $blog['user_id
 ?>
 <?php require 'includes/header.php'; ?>
 
-<div class="container" style="max-width: 700px; padding: 60px 0;">
+<div class="container blog-page-container">
   <a href="index.php" class="meta" style="color: var(--accent);">&larr; Back to blogs</a>
 
   <?php if (!empty($blog['cover_image']) && file_exists(__DIR__ . '/uploads/' . $blog['cover_image'])): ?>
     <img src="uploads/<?= htmlspecialchars($blog['cover_image']) ?>" alt="" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: var(--radius); margin-top: 20px;">
   <?php endif; ?>
-
-  <h1 style="margin-top: 20px;"><?= htmlspecialchars($blog['title']) ?></h1>
+<h1 class="blog-title">
+    <?= htmlspecialchars($blog['title']) ?>
+</h1>
 
   <p class="meta" style="margin-top: 12px;">
     By <?= htmlspecialchars($blog['username']) ?> · <?= date('F j, Y', strtotime($blog['created_at'])) ?>
@@ -50,16 +51,18 @@ $isOwner = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $blog['user_id
   </p>
 
   <?php if ($isOwner): ?>
-    <div style="display: flex; gap: 12px; margin-top: 20px;">
+   <div class="blog-actions">
       <a href="edit-blog.php?id=<?= $blog['id'] ?>" class="btn btn-secondary">Edit</a>
       <form method="POST" action="delete-blog.php" onsubmit="return confirm('Are you sure you want to delete this post? This cannot be undone.');">
         <input type="hidden" name="id" value="<?= $blog['id'] ?>">
-        <button type="submit" class="btn btn-secondary" style="border-color: var(--danger); color: var(--danger);">Delete</button>
+        <button type="submit" class="btn btn-secondary blog-delete-btn">
+    Delete
+</button>
       </form>
     </div>
   <?php endif; ?>
 
-  <div style="margin-top: 32px; line-height: 1.8;" class="blog-content">
+  <div class="blog-content">
     <?= formatBlogContent($blog['content']) ?>
   </div>
 </div>

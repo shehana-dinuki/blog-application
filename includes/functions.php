@@ -1,9 +1,9 @@
 <?php
 /**
- * Converts simple markdown-style formatting into safe HTML.
- * Escapes all content FIRST (security), then applies formatting on top.
- * Processes paragraph-by-paragraph so a stray/unmatched symbol
- * can't accidentally bleed formatting into other paragraphs.
+ * Converts user-entered Markdown-style text into safe HTML.
+ * Secures the content first, then applies supported formatting.
+ * Processes each paragraph separately to prevent formatting errors
+ * from affecting other paragraphs.
  */
 function formatBlogContent($text) {
     // Split into paragraphs on blank lines
