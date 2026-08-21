@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // Fetch the blog post
-$stmt = $pdo->prepare("SELECT * FROM blogPost WHERE id = ?");
+$stmt = $pdo->prepare("SELECT * FROM blogpost WHERE id = ?");
 $stmt->execute([$id]);
 $blog = $stmt->fetch();
 
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
         if (empty($errors)) {
-        $stmt = $pdo->prepare("UPDATE blogPost SET title = ?, category = ?, content = ?, cover_image = ? WHERE id = ? AND user_id = ?");
+        $stmt = $pdo->prepare("UPDATE blogpost SET title = ?, category = ?, content = ?, cover_image = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $category, $content, $coverImage, $id, $_SESSION['user_id']]);
 
         header("Location: blog.php?id=" . $id);

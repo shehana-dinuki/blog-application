@@ -14,6 +14,7 @@ function formatBlogContent($text) {
         $safe = htmlspecialchars(trim($para));
 
         // Heading: ## Heading (must be the whole paragraph)
+        
         if (preg_match('/^##\s+(.+)$/', $safe, $matches)) {
             $html .= '<h3>' . $matches[1] . '</h3>';
             continue;

@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
       if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO blogPost (user_id, title, category, content, cover_image) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO blogpost (user_id, title, category, content, cover_image) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$_SESSION['user_id'], $title, $category, $content, $coverImage]);
         $newBlogId = $pdo->lastInsertId();
 

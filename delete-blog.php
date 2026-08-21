@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
 
 // Fetch the blog to check ownership
-$stmt = $pdo->prepare("SELECT user_id FROM blogPost WHERE id = ?");
+$stmt = $pdo->prepare("SELECT user_id FROM blogpost WHERE id = ?");
 $stmt->execute([$id]);
 $blog = $stmt->fetch();
 
@@ -28,7 +28,7 @@ if (!$blog || $blog['user_id'] != $_SESSION['user_id']) {
 }
 
 // Safe to delete
-$stmt = $pdo->prepare("DELETE FROM blogPost WHERE id = ?");
+$stmt = $pdo->prepare("DELETE FROM blogpost WHERE id = ?");
 $stmt->execute([$id]);
 
 header("Location: index.php");

@@ -8,10 +8,10 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // Fetch the blog post along with its author's username
 $stmt = $pdo->prepare("
-    SELECT blogPost.*, user.username
-    FROM blogPost
-    JOIN user ON blogPost.user_id = user.id
-    WHERE blogPost.id = ?
+    SELECT blogpost.*, user.username
+    FROM blogpost
+    JOIN user ON blogpost.user_id = user.id
+    WHERE blogpost.id = ?
 ");
 $stmt->execute([$id]);
 $blog = $stmt->fetch();

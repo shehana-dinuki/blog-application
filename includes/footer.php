@@ -4,7 +4,7 @@
 
         <!-- ByteLog name -->
         <div class="footer-brand">
-            <a href="/blog-application/index.php" class="footer-logo">
+            <a href="/index.php" class="footer-logo">
                 Byte<span>Log</span>
             </a>
 
@@ -21,17 +21,17 @@
 
             <ul>
                 <li>
-                    <a href="/blog-application/index.php">
+                    <a href="/index.php">
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="/blog-application/dashboard.php">
+                    <a href="/dashboard.php">
                         View Blogs
                     </a>
                 </li>
                 <li>
-                    <a href="/blog-application/create-blog.php">
+                    <a href="/create-blog.php">
                         Create Blog
                     </a>
                 </li>
@@ -77,7 +77,7 @@
 </footer>
 
 
-<script src="/blog-application/js/script.js"></script>
+<script src="/js/script.js"></script>
 
 <script>
     // js script
